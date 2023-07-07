@@ -1,20 +1,32 @@
-import express, { Application, json } from 'express';
+import express, { Application, Router, json } from 'express';
 import { createServer, Server } from 'http';
 import { config } from 'dotenv-safe';
+import { TasksRouter } from './tasks/router/tasks.router';
+import { AuthRouter } from './auth/router/auth.router';
 
 config();
 
 class App {
+  private readonly port: number;
   private readonly app: Application;
   private readonly server: Server;
-  private readonly port: number;
+  private readonly router: Router;
+  private readonly tasksRouter: TasksRouter;
+  private readonly authRouter: AuthRouter;
 
   constructor(port: number) {
     this.port = Number(process.env.PORT) || port;
     this.app = express();
     this.server = createServer(this.app);
+    this.router = express.Router();
+    this.tasksRouter = new TasksRouter(this.router);
+    this.authRouter = new AuthRouter(this.router);
+
+    this.tasksRouter.initTasksRoutes();
+    this.authRouter.initTasksRoutes();
 
     this.app.use(json());
+    this.app.use(this.router);
   }
 
   public appInit(): void {
