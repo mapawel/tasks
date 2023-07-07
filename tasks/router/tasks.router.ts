@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { TasksRoutes } from '../../tasks/routes/tasks-routes.enum';
+import { BadRequestException } from '../../exceptions/bad-request.exception';
 
 export class TasksRouter {
   constructor(private readonly router: Router) {}

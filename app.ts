@@ -3,6 +3,8 @@ import { createServer, Server } from 'http';
 import { config } from 'dotenv-safe';
 import { TasksRouter } from './tasks/router/tasks.router';
 import { AuthRouter } from './auth/router/auth.router';
+import { middleware404 } from './exceptions/middlewares/404.middleware';
+import { appExceptionMiddleware } from './exceptions/middlewares/app-exception.middleware';
 
 config();
 
@@ -27,6 +29,9 @@ class App {
 
     this.app.use(json());
     this.app.use(this.router);
+
+    this.app.use(middleware404);
+    this.app.use(appExceptionMiddleware);
   }
 
   public appInit(): void {
