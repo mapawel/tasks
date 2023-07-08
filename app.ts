@@ -7,6 +7,8 @@ import { middleware404 } from './exceptions/middlewares/404.middleware';
 import { appExceptionMiddleware } from './exceptions/middlewares/app-exception.middleware';
 import { mySQLDataSource } from './data-source/mySQL.data-source';
 
+import { onlyForDevelopmentGetOrCreateTestUser } from './DEVELOPMENT-ONLY/get-or-create-test-user';
+
 config();
 
 class App {
@@ -49,5 +51,13 @@ class App {
   }
 }
 
-const app = new App(8000);
-app.appInit();
+(async function main() {
+  const app = new App(8000);
+  await app.appInit();
+  console.log(
+    await onlyForDevelopmentGetOrCreateTestUser(
+      'testUser@mail.com',
+      'mockedHashPassForDevelopmentOnly'
+    )
+  );
+})();

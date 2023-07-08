@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TaskStatus } from '../../tasks/status/task-status.enum';
+import { User } from '../../users/entity/user.entity';
 
 @Entity()
 export class Task {
@@ -32,4 +33,7 @@ export class Task {
 
   @Column()
   updatedAy: number;
+
+  @ManyToOne(() => User, (user) => user.tasks)
+  user: User;
 }

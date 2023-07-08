@@ -12,5 +12,5 @@ export const mySQLDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   entities: ['./**/entity/*.ts'],
   logging: true,
-  synchronize: true,
+  synchronize: false,
 });
