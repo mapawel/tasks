@@ -3,27 +3,27 @@ import { mySQLDataSource } from '../data-source/mySQL.data-source';
 
 export const onlyForDevelopmentGetOrCreateTestUser = async (
   email: string,
-  hashpass: string
-): Promise<{ email: string; hashpass: string } | void> => {
+  password: string
+): Promise<{ email: string; password: string } | void> => {
   try {
     const userRepository = mySQLDataSource.getRepository(User);
     let testUser: User | null;
 
     testUser = await userRepository.findOne({
-      where: { email: email, hashpass: hashpass },
+      where: { email, password },
     });
 
     if (!testUser) {
       testUser = await userRepository.save({
         email,
-        hashpass,
+        password,
         createdAt: new Date(),
       });
     }
 
     return {
       email: testUser.email,
-      hashpass: testUser.hashpass,
+      password: testUser.password,
     };
   } catch (err) {
     console.error(

@@ -10,7 +10,7 @@ export class User {
   email: string;
 
   @Column()
-  hashpass: string;
+  password: string; // WYŁACZNIE NA POTRZEBY TEGO ZADANIA DOPUSZCZAM TRZYMANIE CZYSTEGO HASŁA! OCZYWIŚCIE TU MUSI BYĆ HASH ALE NIE MA TU IMPLEMENTACJI SIGNON I TWORZENIA USER ENTITY WIĘC NIE WDRAŻAM HASHOWANIA!!!
 
   @Column()
   createdAt: Date;

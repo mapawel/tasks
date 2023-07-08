@@ -40,7 +40,7 @@ class App {
   public async appInit(): Promise<void> {
     try {
       await mySQLDataSource.initialize();
-      console.log('Local MySQL DB has been initialized!');
+      console.log('Connection to local MySQL DB has been initialized!');
 
       this.server.listen(this.port, () => {
         console.log(`Server is running on port ${this.port}`);
@@ -52,12 +52,12 @@ class App {
 }
 
 (async function main() {
-  const app = new App(8000);
+  const app = new App(8001);
   await app.appInit();
   console.log(
     await onlyForDevelopmentGetOrCreateTestUser(
       'testUser@mail.com',
-      'mockedHashPassForDevelopmentOnly'
+      'notHashedPassForDevelopmentOnly'
     )
   );
 })();

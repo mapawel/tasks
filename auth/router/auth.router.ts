@@ -1,18 +1,22 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { AuthRoutes } from '../../auth/routes/auth-routes.enum';
+import { AuthService } from '../../auth/service/auth.service';
+import { UserLoginReqDTO } from '../../auth/dto/user-login-req.dto';
+import { ValidationMiddlewares } from '../../validation/middleware/validation-middlewares';
 
 export class AuthRouter {
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly authService = new AuthService(),
+    private readonly getbodyValidation = ValidationMiddlewares.getBodyValidation
+  ) {}
 
   public initTasksRoutes(): void {
     this.router.post(
       `${AuthRoutes.AUTH}${AuthRoutes.LOGIN}`,
-      (req: Request, res: Response) => {
-        const { email } = req.body;
-        res.send(
-          `Here will be a response with a token for user with email: ${email}`
-        );
-      }
+      this.getbodyValidation<UserLoginReqDTO>(UserLoginReqDTO),
+      (req: Request, res: Response, next: NextFunction) =>
+        this.authService.login(req, res, next)
     );
 
     this.router.get(
