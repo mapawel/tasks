@@ -5,6 +5,7 @@ import { TasksRouter } from './tasks/router/tasks.router';
 import { AuthRouter } from './auth/router/auth.router';
 import { middleware404 } from './exceptions/middlewares/404.middleware';
 import { appExceptionMiddleware } from './exceptions/middlewares/app-exception.middleware';
+import { mySQLDataSource } from './data-source/mySQL.data-source';
 
 config();
 
@@ -34,10 +35,17 @@ class App {
     this.app.use(appExceptionMiddleware);
   }
 
-  public appInit(): void {
-    this.server.listen(this.port, () => {
-      console.log(`Server is running on port ${this.port}`);
-    });
+  public async appInit(): Promise<void> {
+    try {
+      await mySQLDataSource.initialize();
+      console.log('Local MySQL DB has been initialized!');
+
+      this.server.listen(this.port, () => {
+        console.log(`Server is running on port ${this.port}`);
+      });
+    } catch (err) {
+      console.error('Error during app initialization:', err);
+    }
   }
 }
 
