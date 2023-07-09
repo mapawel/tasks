@@ -1,4 +1,5 @@
 import { Response, NextFunction } from 'express';
+import { plainToInstance } from 'class-transformer';
 import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
 import { TaskResDTO } from '../../tasks/dto/task-res.dto';
 import { mySQLDataSource } from '../../data-source/mySQL.data-source';
@@ -7,6 +8,10 @@ import { taskResDtoMapper } from '../../tasks/dto/task-res-dto.mapper';
 import { NotFoundException } from '../../exceptions/not-found.exception';
 import { ForbiddenException } from '../../exceptions/forbidden.exception';
 import { TaskStatus } from '../../tasks/status/task-status.enum';
+import { TasksGetQueryDTO } from '../../tasks/dto/tasks-get-query.dto';
+import { TaskCreateReqDTO } from '../../tasks/dto/task-create-req.dto';
+import { TaskReqParamDTO } from '../../tasks/dto/task-req-param.dto';
+import { TaskUpdateReqDTO } from '../../tasks/dto/task-update-req.dto';
 
 export class TasksService {
   private readonly taskRepoitory = mySQLDataSource.getRepository(Task);
@@ -17,13 +22,15 @@ export class TasksService {
     next: NextFunction
   ): Promise<Response<TaskResDTO[]> | void> {
     try {
-      const { query } = req;
-
-      console.log('query ----> ', query); // dodać walidację
+      const { skip, take, order, orderBy, status, title }: TasksGetQueryDTO =
+        plainToInstance(TasksGetQueryDTO, req.query);
 
       const tasks: Task[] = await this.taskRepoitory.find({
-        where: query,
+        where: { status, title },
         relations: ['user'],
+        skip,
+        take,
+        order: { [orderBy]: order },
       });
       res.json(tasks.map((task) => taskResDtoMapper(task)));
     } catch (error) {
@@ -37,10 +44,10 @@ export class TasksService {
     next: NextFunction
   ): Promise<Response<TaskResDTO> | void> {
     try {
-      const { id } = req.params;
+      const { id } = plainToInstance(TaskReqParamDTO, req.params);
 
       const task: Task | null = await this.taskRepoitory.findOne({
-        where: { id: +id }, // zmienić gdy validacja params i obiekt z translation: true
+        where: { id },
         relations: ['user'],
       });
 
@@ -58,10 +65,10 @@ export class TasksService {
     next: NextFunction
   ): Promise<Response<TaskResDTO> | void> {
     try {
-      const { body } = req; //dodać walidację
+      const taskCreateReqDTO = plainToInstance(TaskCreateReqDTO, req.body);
 
       const task: Task = await this.taskRepoitory.save({
-        ...body,
+        ...taskCreateReqDTO,
         status: TaskStatus.OPEN,
         user: { id: req.userId },
         createdBy: req.userId,
@@ -80,18 +87,21 @@ export class TasksService {
     next: NextFunction
   ): Promise<Response<TaskResDTO> | void> {
     try {
-      const { id } = req.params;
-      const { body } = req; //dodać walidację
+      const { id } = plainToInstance(TaskReqParamDTO, req.params);
+
+      const taskUpdateReqDTO = plainToInstance(TaskUpdateReqDTO, req.body, {
+        exposeUnsetFields: true,
+      });
 
       const task: Task | null = await this.taskRepoitory.findOne({
-        where: { id: +id }, // zmienić gdy validacja params i obiekt z translation: true
+        where: { id },
         relations: ['user'],
       });
       if (!task) throw new NotFoundException();
 
       const updatedTask: Task = await this.taskRepoitory.save({
         ...task,
-        ...body,
+        ...taskUpdateReqDTO,
         updatedBy: req.userId,
         updatedAt: new Date(),
       });

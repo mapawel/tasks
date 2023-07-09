@@ -15,7 +15,8 @@ export const appExceptionMiddleware = (
     ' <--'
   );
 
-  if (!error?.code) return res.status(500).json('Internal server error');
+  if (!error?.code || typeof error?.code === 'string')
+    return res.status(500).json('Internal server error');
 
   if (error instanceof BadRequestException)
     return res.status(error.code).json({

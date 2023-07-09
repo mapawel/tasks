@@ -19,4 +19,34 @@ export class ValidationMiddlewares {
       next();
     };
   }
+
+  static getQueryValidation<T extends object>(targetClass: ClassType<T>) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      const validated = plainToInstance(targetClass, req.query);
+
+      const errors: ValidationError[] = await validate(validated, {
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      });
+      if (errors.length > 0) {
+        next(new BadRequestException({ errors }));
+      }
+      next();
+    };
+  }
+
+  static getParamValidation<T extends object>(targetClass: ClassType<T>) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      const validated = plainToInstance(targetClass, req.params);
+
+      const errors: ValidationError[] = await validate(validated, {
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      });
+      if (errors.length > 0) {
+        next(new BadRequestException({ errors }));
+      }
+      next();
+    };
+  }
 }
