@@ -66,7 +66,7 @@ class App {
   await app.appInit();
   console.log(
     await onlyForDevelopmentGetOrCreateTestUser(
-      'testUser@mail.com',
+      'testUser2@mail.com',
       'notHashedPassForDevelopmentOnly'
     )
   );
