@@ -3,6 +3,8 @@ import { AuthRoutes } from '../../auth/routes/auth-routes.enum';
 import { AuthService } from '../../auth/service/auth.service';
 import { UserLoginReqDTO } from '../../auth/dto/user-login-req.dto';
 import { ValidationMiddlewares } from '../../validation/middleware/validation-middlewares';
+import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
+import { authMiddleware } from '../../auth/middlewares/auth-middleware';
 
 export class AuthRouter {
   constructor(
@@ -21,16 +23,16 @@ export class AuthRouter {
 
     this.router.get(
       `${AuthRoutes.AUTH}${AuthRoutes.LOGOUT}`,
-      (req: Request, res: Response) => {
-        res.send('Here will be a response with a message about logout');
-      }
+      authMiddleware,
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.authService.logout(req, res, next)
     );
 
     this.router.get(
       `${AuthRoutes.AUTH}${AuthRoutes.ME}`,
-      (req: Request, res: Response) => {
-        res.send('Here will be a response with a user info');
-      }
+      authMiddleware,
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.authService.getMe(req, res, next)
     );
   }
 }

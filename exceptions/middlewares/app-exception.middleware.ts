@@ -9,7 +9,13 @@ export const appExceptionMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  console.error(' --> APP ERROR: ', JSON.stringify(error, null, 2), ' <--');
+  console.error(
+    ' --> APP ERROR: ',
+    error instanceof Object ? JSON.stringify(error, null, 2) : error,
+    ' <--'
+  );
+
+  if (!error?.code) return res.status(500).json('Internal server error');
 
   if (error instanceof BadRequestException)
     return res.status(error.code).json({

@@ -1,7 +1,7 @@
-import { HttpException } from "./http.exception";
+import { HttpException } from './http.exception';
 
 export class UnauthorizedException extends HttpException {
-  constructor(readonly payload?: { couse?: Error }) {
-    super('User not authorized!', 401, payload?.couse);
+  constructor(readonly message: string, readonly payload?: { couse?: Error }) {
+    super(message, 401, payload?.couse);
   }
 }

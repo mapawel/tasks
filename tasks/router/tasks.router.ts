@@ -1,17 +1,22 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
+import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
 import { TasksRoutes } from '../../tasks/routes/tasks-routes.enum';
-import { BadRequestException } from '../../exceptions/bad-request.exception';
+import { authMiddleware } from '../../auth/middlewares/auth-middleware';
 
 export class TasksRouter {
   constructor(private readonly router: Router) {}
 
   public initTasksRoutes(): void {
-    this.router.get(TasksRoutes.TASKS, (req: Request, res: Response) => {
-      const { query } = req;
-      res.send(
-        `Here will be tasks list matching query: ${JSON.stringify(query)}`
-      );
-    });
+    this.router.get(
+      TasksRoutes.TASKS,
+      authMiddleware,
+      (req: ExtendedRequest, res: Response) => {
+        const { query } = req;
+        res.send(
+          `Here will be tasks list matching query: ${JSON.stringify(query)}`
+        );
+      }
+    );
 
     this.router.get(
       `${TasksRoutes.TASKS}${TasksRoutes.ID}`,
