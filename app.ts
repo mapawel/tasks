@@ -6,6 +6,9 @@ import { AuthRouter } from './auth/router/auth.router';
 import { middleware404 } from './exceptions/middlewares/404.middleware';
 import { appExceptionMiddleware } from './exceptions/middlewares/app-exception.middleware';
 import { mySQLDataSource } from './data-source/mySQL.data-source';
+import { redisClient } from './data-source/redis.data-source';
+import { createAuthMiddleware } from './auth/middlewares/auth-middleware';
+import { AuthRoutes } from './auth/routes/auth-routes.enum';
 
 import { onlyForDevelopmentGetOrCreateTestUser } from './DEVELOPMENT-ONLY/get-or-create-test-user';
 
@@ -31,6 +34,10 @@ class App {
     this.authRouter.initTasksRoutes();
 
     this.app.use(json());
+    
+    this.app.use(
+      createAuthMiddleware({ openPath: `${AuthRoutes.AUTH}${AuthRoutes.LOGIN}` })
+    );
     this.app.use(this.router);
 
     this.app.use(middleware404);
@@ -41,6 +48,9 @@ class App {
     try {
       await mySQLDataSource.initialize();
       console.log('Connection to local MySQL DB has been initialized!');
+
+      await redisClient.connect();
+      console.log('Redis client has been initialized!');
 
       this.server.listen(this.port, () => {
         console.log(`Server is running on port ${this.port}`);

@@ -1,7 +1,6 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
 import { TasksRoutes } from '../../tasks/routes/tasks-routes.enum';
-import { authMiddleware } from '../../auth/middlewares/auth-middleware';
 
 export class TasksRouter {
   constructor(private readonly router: Router) {}
@@ -9,7 +8,6 @@ export class TasksRouter {
   public initTasksRoutes(): void {
     this.router.get(
       TasksRoutes.TASKS,
-      authMiddleware,
       (req: ExtendedRequest, res: Response) => {
         const { query } = req;
         res.send(
