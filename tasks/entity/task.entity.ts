@@ -26,13 +26,13 @@ export class Task {
   createdBy: number;
 
   @Column()
-  createdAy: number;
+  createdAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updatedBy: number;
 
-  @Column()
-  updatedAy: number;
+  @Column({ nullable: true })
+  updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.tasks)
   user: User;

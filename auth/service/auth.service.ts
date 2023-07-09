@@ -4,8 +4,8 @@ import { mySQLDataSource } from '../../data-source/mySQL.data-source';
 import { UnauthorizedException } from '../../exceptions/unauthorized.exception';
 import { JwtService } from './jwt.service';
 import { ExtendedRequest } from 'app-interfaces/extended-req.interface';
-import { userDtoMapper } from '../../users/dto/user-dto.mapper';
-import { UserDTO } from 'users/dto/user.dto';
+import { userResDtoMapper } from '../../users/dto/user-res-dto.mapper';
+import { UserResDTO } from 'users/dto/user-res.dto';
 import { redisClient } from '../../data-source/redis.data-source';
 
 export class AuthService {
@@ -36,7 +36,7 @@ export class AuthService {
     req: ExtendedRequest,
     res: Response,
     next: NextFunction
-  ): Promise<Response<UserDTO> | void> {
+  ): Promise<Response<UserResDTO> | void> {
     try {
       const user = await this.userRepoitory.findOne({
         where: { id: req.userId },
@@ -45,7 +45,7 @@ export class AuthService {
       if (!user)
         throw new UnauthorizedException('Invalid request, cannon fetch user');
 
-      res.json(userDtoMapper(user));
+      res.json(userResDtoMapper(user));
     } catch (error) {
       next(error);
     }

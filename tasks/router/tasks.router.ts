@@ -1,45 +1,43 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
 import { TasksRoutes } from '../../tasks/routes/tasks-routes.enum';
+import { TasksService } from '../../tasks/service/tesks.service';
 
 export class TasksRouter {
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly tasksService = new TasksService()
+  ) {}
 
   public initTasksRoutes(): void {
     this.router.get(
       TasksRoutes.TASKS,
-      (req: ExtendedRequest, res: Response) => {
-        const { query } = req;
-        res.send(
-          `Here will be tasks list matching query: ${JSON.stringify(query)}`
-        );
-      }
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.tasksService.getTasks(req, res, next)
     );
 
     this.router.get(
       `${TasksRoutes.TASKS}${TasksRoutes.ID}`,
-      (req: Request, res: Response) => {
-        const { id } = req.params;
-        res.send(`Here will be a task with id: ${id}`);
-      }
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.tasksService.getTaskById(req, res, next)
     );
 
-    this.router.post(TasksRoutes.TASKS, (req: Request, res: Response) => {
-      res.send('Here will be a response with a new task just created');
-    });
+    this.router.post(
+      TasksRoutes.TASKS,
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.tasksService.createTask(req, res, next)
+    );
 
     this.router.patch(
       `${TasksRoutes.TASKS}${TasksRoutes.ID}`,
-      (req: Request, res: Response) => {
-        res.send('Here will response with a task just updated');
-      }
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.tasksService.updateTask(req, res, next)
     );
 
     this.router.delete(
       `${TasksRoutes.TASKS}${TasksRoutes.ID}`,
-      (req: Request, res: Response) => {
-        res.send('Here will response with result of task deletion');
-      }
+      (req: ExtendedRequest, res: Response, next: NextFunction) =>
+        this.tasksService.deleteTask(req, res, next)
     );
   }
 }
