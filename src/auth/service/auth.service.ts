@@ -3,7 +3,7 @@ import { User } from '../../users/entity/user.entity';
 import { mySQLDataSource } from '../../data-source/mySQL.data-source';
 import { UnauthorizedException } from '../../exceptions/unauthorized.exception';
 import { JwtService } from './jwt.service';
-import { ExtendedRequest } from 'app-interfaces/extended-req.interface';
+import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
 import { userResDtoMapper } from '../../users/dto/user-res-dto.mapper';
 import { UserResDTO } from 'users/dto/user-res.dto';
 import { redisClient } from '../../data-source/redis.data-source';

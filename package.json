@@ -4,7 +4,7 @@
   "description": "simple Express app with TypeScript according to recruitment task",
   "main": "app.js",
   "scripts": {
-    "ts-start": "ts-node app.ts",
+    "ts-start": "ts-node ./src/app.ts",
     "start": "node ./dist/app.js",
     "nodemon-start": "nodemon ./dist/app.js",
     "test": "mocha -r ts-node/register \"./**/__tests__/*.spec.ts\" --exit"
