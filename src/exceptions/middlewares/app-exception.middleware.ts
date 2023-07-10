@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction } from "express";
 import { HttpException } from "../../exceptions/http.exception";
 import { BadRequestException } from "../../exceptions/bad-request.exception";
-import { UnauthorizedException } from "../../exceptions/unauthorized.exception";
 
 export const appExceptionMiddleware = (
   error: HttpException,

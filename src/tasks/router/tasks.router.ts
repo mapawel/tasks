@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Response, NextFunction } from "express";
 import { ExtendedRequest } from "../../app-interfaces/extended-req.interface";
 import { TasksRoutes } from "../../tasks/routes/tasks-routes.enum";
 import { TasksService } from "../../tasks/service/tesks.service";
