@@ -1,7 +1,7 @@
-##TAKS
-######SIMPLE NODE BACKEND APP IN EXPRESS WITH TYPESCRIPT
+#TAKS
+###SIMPLE NODE BACKEND APP IN EXPRESS WITH TYPESCRIPT
 
-#####TECHNOLOGIES USED
+##TECHNOLOGIES USED
 - Typescript
 - OOP
 - ESLint and Prettier
@@ -12,7 +12,7 @@
 - Jest (app is *for tests ready*)
 
 
-#####KEY FEATURES
+###KEY FEATURES
 - app works with json
 - full requests validation (queries, body, params), DTOs on response
 - authentication and authorization with Bearer tokens (JWT) - all routes secured by middleware
@@ -21,7 +21,7 @@
 - fetching *tasks* with query params allowing pagination, sorting, filtering
 
 
-######ROUTES
+####ROUTES
 POST /auth/login
 GET /auth/logout
 GET /auth/me
@@ -32,7 +32,7 @@ POST /tasks
 PATCH /tasks/:id
 DELETE /tasks/:id
 
-#####APP START
+###APP START
 1. Clone projet
 2. ` npm i`
 3. You need your local MySQL DB and Redis
