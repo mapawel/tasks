@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from "express";
 
 export type UserCredentials = {
   email: string;
@@ -7,8 +7,8 @@ export type UserCredentials = {
 
 export class AuthTestsConfig {
   readonly testUserCredentials = {
-    email: 'testuser',
-    password: 'testpassword',
+    email: "testuser",
+    password: "testpassword",
   };
 
   public mockedUserRepository = {

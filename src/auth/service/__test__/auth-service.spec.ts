@@ -1,10 +1,10 @@
-import { User } from 'users/entity/user.entity';
-import { AuthService } from '../auth.service';
-import { JwtService } from '../jwt.service';
-import { AuthTestsConfig } from './auth-tests.config';
-import { Repository } from 'typeorm';
+import { User } from "users/entity/user.entity";
+import { AuthService } from "../auth.service";
+import { JwtService } from "../jwt.service";
+import { AuthTestsConfig } from "./auth-tests.config";
+import { Repository } from "typeorm";
 
-describe('auth service testing suit:', () => {
+describe("auth service testing suit:", () => {
   let authService: AuthService;
   let authTestsConfig: AuthTestsConfig;
 
@@ -15,7 +15,7 @@ describe('auth service testing suit:', () => {
     );
   });
 
-  describe('login method', () => {
+  describe("login method", () => {
     it('should accept credentials and run "sign" method from JwtService', async () => {
       // given
       const {
@@ -27,12 +27,12 @@ describe('auth service testing suit:', () => {
       } = authTestsConfig;
 
       const mockedUserRepoFindOneSpy = jest
-        .spyOn(mockedUserRepository, 'findOne')
+        .spyOn(mockedUserRepository, "findOne")
         .mockResolvedValue({ id: 1 } as User);
 
       const jwtServiceSignSpy = jest
-        .spyOn(JwtService, 'sign')
-        .mockResolvedValue('mockedToken');
+        .spyOn(JwtService, "sign")
+        .mockResolvedValue("mockedToken");
 
       //when
       await authService.login(
@@ -44,7 +44,9 @@ describe('auth service testing suit:', () => {
       //then
       expect(mockedUserRepoFindOneSpy).toBeCalledTimes(1);
       expect(jwtServiceSignSpy).toBeCalledTimes(1);
-      expect(mockedResponse.json).toHaveBeenCalledWith({ token: 'mockedToken' });
+      expect(mockedResponse.json).toHaveBeenCalledWith({
+        token: "mockedToken",
+      });
       expect(mockedNextFn).not.toHaveBeenCalled();
     });
   });

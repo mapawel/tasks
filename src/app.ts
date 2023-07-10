@@ -64,7 +64,7 @@ class App {
 }
 
 (async function main() {
-  const app = new App(8001);
+  const app = new App(8000);
   await app.appInit();
   console.log(
     await onlyForDevelopmentGetOrCreateTestUser(
