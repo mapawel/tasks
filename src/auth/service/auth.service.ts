@@ -9,7 +9,7 @@ import { redisClient } from '../../data-source/redis.data-source';
 import { Repository } from 'typeorm';
 
 export class AuthService {
-  constructor(private readonly userRepoitory: Repository<User>) {}
+  constructor(private readonly userRepository: Repository<User>) {}
 
   public async login(
     req: Request,
@@ -18,7 +18,7 @@ export class AuthService {
   ): Promise<Response<{ token: string }> | void> {
     try {
       const { email, password } = req.body;
-      const user = await this.userRepoitory.findOne({
+      const user = await this.userRepository.findOne({
         where: { email, password },
       });
 
@@ -38,7 +38,7 @@ export class AuthService {
     next: NextFunction
   ): Promise<Response<UserResDTO> | void> {
     try {
-      const user = await this.userRepoitory.findOne({
+      const user = await this.userRepository.findOne({
         where: { id: req.userId },
       });
 
