@@ -118,14 +118,14 @@ export class TasksService {
     next: NextFunction
   ): Promise<Response<TaskResDTO> | void> {
     try {
-      const { id } = req.params;
+      const { id } = plainToInstance(TaskReqParamDTO, req.params);
 
       const task: Task | null = await this.taskRepoitory.findOne({
-        where: { id: +id }, // zmienić gdy validacja params i obiekt z translation: true
+        where: { id },
         relations: ['user'],
       });
       if (!task) throw new NotFoundException();
-      if (task.user.id !== req.userId)
+      if (task.createdBy !== req.userId)
         throw new ForbiddenException('Not allowed to delete this task');
 
       await this.taskRepoitory.remove(task);
