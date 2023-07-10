@@ -1,5 +1,5 @@
-import { Transform } from 'class-transformer';
-import { IsDate, IsString, Length } from 'class-validator';
+import { Transform } from "class-transformer";
+import { IsDate, IsString, Length } from "class-validator";
 
 export class TaskCreateReqDTO {
   @IsString()

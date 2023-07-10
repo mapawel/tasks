@@ -1,9 +1,9 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { AuthRoutes } from '../../auth/routes/auth-routes.enum';
-import { AuthService } from '../../auth/service/auth.service';
-import { UserLoginReqDTO } from '../../auth/dto/user-login-req.dto';
-import { ValidationMiddlewares } from '../../validation/middleware/validation-middlewares';
-import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
+import { Router, Request, Response, NextFunction } from "express";
+import { AuthRoutes } from "../../auth/routes/auth-routes.enum";
+import { AuthService } from "../../auth/service/auth.service";
+import { UserLoginReqDTO } from "../../auth/dto/user-login-req.dto";
+import { ValidationMiddlewares } from "../../validation/middleware/validation-middlewares";
+import { ExtendedRequest } from "../../app-interfaces/extended-req.interface";
 
 export class AuthRouter {
   constructor(

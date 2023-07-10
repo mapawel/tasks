@@ -1,3 +1,3 @@
-import { createClient, RedisClientType } from 'redis';
+import { createClient, RedisClientType } from "redis";
 
 export const redisClient: RedisClientType = createClient();

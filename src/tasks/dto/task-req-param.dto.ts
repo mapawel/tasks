@@ -1,5 +1,5 @@
-import { Transform } from 'class-transformer';
-import { IsNumber } from 'class-validator';
+import { Transform } from "class-transformer";
+import { IsNumber } from "class-validator";
 
 export class TaskReqParamDTO {
   @Transform(({ value }) => Number(value))

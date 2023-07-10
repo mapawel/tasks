@@ -1,4 +1,4 @@
 export enum TasksRoutes {
-  TASKS = '/tasks',
-  ID = '/:id',
+  TASKS = "/tasks",
+  ID = "/:id",
 }

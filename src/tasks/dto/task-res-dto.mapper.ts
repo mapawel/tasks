@@ -1,6 +1,6 @@
-import { Task } from 'tasks/entity/task.entity';
-import { userResDtoMapper } from '../../users/dto/user-res-dto.mapper';
-import { TaskResDTO } from './task-res.dto';
+import { Task } from "tasks/entity/task.entity";
+import { userResDtoMapper } from "../../users/dto/user-res-dto.mapper";
+import { TaskResDTO } from "./task-res.dto";
 
 export const taskResDtoMapper = (task: Task): TaskResDTO => ({
   id: task.id,

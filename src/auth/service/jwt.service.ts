@@ -1,6 +1,6 @@
-import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
-import { config } from 'dotenv-safe';
-import { IUserPayload } from '../../auth/interfaces/user-payload.interface';
+import jwt, { JwtPayload, VerifyErrors } from "jsonwebtoken";
+import { config } from "dotenv-safe";
+import { IUserPayload } from "../../auth/interfaces/user-payload.interface";
 
 config();
 
@@ -12,9 +12,9 @@ interface IUserDecoded extends IUserPayload {
 export class JwtService {
   static sign(object: IUserPayload, time?: string | number) {
     return new Promise((resolve, reject) => {
-      if (!process.env.JWT_SECRET) return reject('JWT_SECRET is not defined');
+      if (!process.env.JWT_SECRET) return reject("JWT_SECRET is not defined");
       if (!process.env.JWT_EXPIRES_IN && !time)
-        return reject('JWT_EXPIRES_IN is not defined nor time is passed');
+        return reject("JWT_EXPIRES_IN is not defined nor time is passed");
 
       jwt.sign(
         object,
@@ -24,7 +24,7 @@ export class JwtService {
         },
         (err, token) => {
           if (err || !token) {
-            return reject(err || 'Token is not defined');
+            return reject(err || "Token is not defined");
           }
           resolve(token);
         }
@@ -34,7 +34,7 @@ export class JwtService {
 
   static verify(token: string): Promise<IUserDecoded> {
     return new Promise((resolve, reject) => {
-      if (!process.env.JWT_SECRET) return reject('JWT_SECRET is not defined');
+      if (!process.env.JWT_SECRET) return reject("JWT_SECRET is not defined");
 
       jwt.verify(
         token,

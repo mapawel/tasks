@@ -1,5 +1,5 @@
-import { User } from '../users/entity/user.entity';
-import { mySQLDataSource } from '../data-source/mySQL.data-source';
+import { User } from "../users/entity/user.entity";
+import { mySQLDataSource } from "../data-source/mySQL.data-source";
 
 export const onlyForDevelopmentGetOrCreateTestUser = async (
   email: string,
@@ -27,7 +27,7 @@ export const onlyForDevelopmentGetOrCreateTestUser = async (
     };
   } catch (err) {
     console.error(
-      'Error during geting or creating test user for development:',
+      "Error during geting or creating test user for development:",
       err
     );
   }

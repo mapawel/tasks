@@ -1,5 +1,5 @@
-import { TaskStatus } from 'tasks/status/task-status.enum';
-import { UserResDTO } from 'users/dto/user-res.dto';
+import { TaskStatus } from "tasks/status/task-status.enum";
+import { UserResDTO } from "users/dto/user-res.dto";
 
 export interface TaskResDTO {
   id: number;

@@ -1,17 +1,17 @@
-import { Response, NextFunction } from 'express';
-import { plainToInstance } from 'class-transformer';
-import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
-import { TaskResDTO } from '../../tasks/dto/task-res.dto';
-import { mySQLDataSource } from '../../data-source/mySQL.data-source';
-import { Task } from '../../tasks/entity/task.entity';
-import { taskResDtoMapper } from '../../tasks/dto/task-res-dto.mapper';
-import { NotFoundException } from '../../exceptions/not-found.exception';
-import { ForbiddenException } from '../../exceptions/forbidden.exception';
-import { TaskStatus } from '../../tasks/status/task-status.enum';
-import { TasksGetQueryDTO } from '../../tasks/dto/tasks-get-query.dto';
-import { TaskCreateReqDTO } from '../../tasks/dto/task-create-req.dto';
-import { TaskReqParamDTO } from '../../tasks/dto/task-req-param.dto';
-import { TaskUpdateReqDTO } from '../../tasks/dto/task-update-req.dto';
+import { Response, NextFunction } from "express";
+import { plainToInstance } from "class-transformer";
+import { ExtendedRequest } from "../../app-interfaces/extended-req.interface";
+import { TaskResDTO } from "../../tasks/dto/task-res.dto";
+import { mySQLDataSource } from "../../data-source/mySQL.data-source";
+import { Task } from "../../tasks/entity/task.entity";
+import { taskResDtoMapper } from "../../tasks/dto/task-res-dto.mapper";
+import { NotFoundException } from "../../exceptions/not-found.exception";
+import { ForbiddenException } from "../../exceptions/forbidden.exception";
+import { TaskStatus } from "../../tasks/status/task-status.enum";
+import { TasksGetQueryDTO } from "../../tasks/dto/tasks-get-query.dto";
+import { TaskCreateReqDTO } from "../../tasks/dto/task-create-req.dto";
+import { TaskReqParamDTO } from "../../tasks/dto/task-req-param.dto";
+import { TaskUpdateReqDTO } from "../../tasks/dto/task-update-req.dto";
 
 export class TasksService {
   private readonly taskRepoitory = mySQLDataSource.getRepository(Task);
@@ -27,7 +27,7 @@ export class TasksService {
 
       const tasks: Task[] = await this.taskRepoitory.find({
         where: { status, title },
-        relations: ['user'],
+        relations: ["user"],
         skip,
         take,
         order: { [orderBy]: order },
@@ -48,7 +48,7 @@ export class TasksService {
 
       const task: Task | null = await this.taskRepoitory.findOne({
         where: { id },
-        relations: ['user'],
+        relations: ["user"],
       });
 
       if (!task) throw new NotFoundException();
@@ -95,7 +95,7 @@ export class TasksService {
 
       const task: Task | null = await this.taskRepoitory.findOne({
         where: { id },
-        relations: ['user'],
+        relations: ["user"],
       });
       if (!task) throw new NotFoundException();
 
@@ -122,11 +122,11 @@ export class TasksService {
 
       const task: Task | null = await this.taskRepoitory.findOne({
         where: { id },
-        relations: ['user'],
+        relations: ["user"],
       });
       if (!task) throw new NotFoundException();
       if (task.createdBy !== req.userId)
-        throw new ForbiddenException('Not allowed to delete this task');
+        throw new ForbiddenException("Not allowed to delete this task");
 
       await this.taskRepoitory.remove(task);
 

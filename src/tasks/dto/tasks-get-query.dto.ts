@@ -1,6 +1,6 @@
-import { Transform } from 'class-transformer';
-import { IsEnum, IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
-import { TaskStatus } from '../../tasks/status/task-status.enum';
+import { Transform } from "class-transformer";
+import { IsEnum, IsIn, IsNumber, IsOptional, IsString } from "class-validator";
+import { TaskStatus } from "../../tasks/status/task-status.enum";
 
 export class TasksGetQueryDTO {
   @Transform(({ value }) => Number(value))
@@ -13,13 +13,13 @@ export class TasksGetQueryDTO {
   @IsOptional()
   take = 50;
 
-  @IsIn(['DESC', 'ASC'])
+  @IsIn(["DESC", "ASC"])
   @IsOptional()
-  order = 'DESC';
+  order = "DESC";
 
-  @IsIn(['status', 'title', 'createdAt'])
+  @IsIn(["status", "title", "createdAt"])
   @IsOptional()
-  orderBy = 'createdAt';
+  orderBy = "createdAt";
 
   @IsEnum(TaskStatus)
   @IsOptional()

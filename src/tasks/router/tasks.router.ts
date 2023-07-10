@@ -1,12 +1,12 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
-import { TasksRoutes } from '../../tasks/routes/tasks-routes.enum';
-import { TasksService } from '../../tasks/service/tesks.service';
-import { ValidationMiddlewares } from '../../validation/middleware/validation-middlewares';
-import { TasksGetQueryDTO } from '../../tasks/dto/tasks-get-query.dto';
-import { TaskCreateReqDTO } from '../../tasks/dto/task-create-req.dto';
-import { TaskReqParamDTO } from '../../tasks/dto/task-req-param.dto';
-import { TaskUpdateReqDTO } from '../../tasks/dto/task-update-req.dto';
+import { Router, Request, Response, NextFunction } from "express";
+import { ExtendedRequest } from "../../app-interfaces/extended-req.interface";
+import { TasksRoutes } from "../../tasks/routes/tasks-routes.enum";
+import { TasksService } from "../../tasks/service/tesks.service";
+import { ValidationMiddlewares } from "../../validation/middleware/validation-middlewares";
+import { TasksGetQueryDTO } from "../../tasks/dto/tasks-get-query.dto";
+import { TaskCreateReqDTO } from "../../tasks/dto/task-create-req.dto";
+import { TaskReqParamDTO } from "../../tasks/dto/task-req-param.dto";
+import { TaskUpdateReqDTO } from "../../tasks/dto/task-update-req.dto";
 
 export class TasksRouter {
   constructor(
