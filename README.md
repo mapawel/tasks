@@ -22,15 +22,15 @@
 
 
 #### ROUTES
-POST /auth/login
-GET /auth/logout
-GET /auth/me
+- POST /auth/login
+- GET /auth/logout
+- GET /auth/me
 
-GET /tasks<?query>
-GET /tasks/:id
-POST /tasks
-PATCH /tasks/:id
-DELETE /tasks/:id
+- GET /tasks<?query>
+- GET /tasks/:id
+- POST /tasks
+- PATCH /tasks/:id
+- DELETE /tasks/:id
 
 ### APP START
 1. Clone projet
