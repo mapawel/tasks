@@ -33,11 +33,11 @@
 - DELETE /tasks/:id
 
 ### APP START
-1. Clone projet
-2. ` npm i`
+1. Clone project
+2. `npm i`
 3. You need your local MySQL DB and Redis
-4. put your data to` .env` accordont to `.env.example`
-5. `npm run ts-start` for start or compile project to /dist and run app.js
+4. put your data to `.env` according to `.env.example`
+5. `npm run ts-start` for TS start or compile project to /dist and run app.js
 
 FOR DEVELOPMENT:
 - tests: `npm run test`
