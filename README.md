@@ -43,5 +43,6 @@ FOR DEVELOPMENT:
 - tests: `npm run test`
 - linting: `npm run lint`
 - formatting: `npm run format`
+- !!! WARNING, the folder: *DEVELOPMENT-ONLY* should be deleted before production build, user signon should be implemented with hashed passwords and salt, this is only for development purposes
 
 **(There is a Jest implemented, app is ready to prepare tests, there will be added if needed!)**

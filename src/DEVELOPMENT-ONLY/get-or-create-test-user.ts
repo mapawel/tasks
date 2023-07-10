@@ -16,14 +16,14 @@ export const onlyForDevelopmentGetOrCreateTestUser = async (
     if (!testUser) {
       testUser = await userRepository.save({
         email,
-        password,
+        password, // WYŁACZNIE NA POTRZEBY TEGO ZADANIA DOPUSZCZAM TRZYMANIE CZYSTEGO HASŁA! OCZYWIŚCIE TU MUSI BYĆ HASH ALE NIE MA TU IMPLEMENTACJI SIGNON I TWORZENIA USER ENTITY WIĘC NIE WDRAŻAM HASHOWANIA!!!
         createdAt: new Date(),
       });
     }
 
     return {
       email: testUser.email,
-      password: testUser.password,
+      password: testUser.password, // WYŁACZNIE NA POTRZEBY TEGO ZADANIA DOPUSZCZAM TRZYMANIE CZYSTEGO HASŁA! OCZYWIŚCIE TU MUSI BYĆ HASH ALE NIE MA TU IMPLEMENTACJI SIGNON I TWORZENIA USER ENTITY WIĘC NIE WDRAŻAM HASHOWANIA!!!
     };
   } catch (err) {
     console.error(
