@@ -1,14 +1,18 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { AuthRoutes } from "../../auth/routes/auth-routes.enum";
-import { AuthService } from "../../auth/service/auth.service";
-import { UserLoginReqDTO } from "../../auth/dto/user-login-req.dto";
-import { ValidationMiddlewares } from "../../validation/middleware/validation-middlewares";
-import { ExtendedRequest } from "../../app-interfaces/extended-req.interface";
+import { Router, Request, Response, NextFunction } from 'express';
+import { AuthRoutes } from '../../auth/routes/auth-routes.enum';
+import { AuthService } from '../../auth/service/auth.service';
+import { UserLoginReqDTO } from '../../auth/dto/user-login-req.dto';
+import { ValidationMiddlewares } from '../../validation/middleware/validation-middlewares';
+import { ExtendedRequest } from '../../app-interfaces/extended-req.interface';
+import { mySQLDataSource } from '../../data-source/mySQL.data-source';
+import { User } from '../../users/entity/user.entity';
 
 export class AuthRouter {
   constructor(
     private readonly router: Router,
-    private readonly authService = new AuthService(),
+    private readonly authService = new AuthService(
+      mySQLDataSource.getRepository(User)
+    ),
     private readonly getbodyValidation = ValidationMiddlewares.getBodyValidation
   ) {}
 
