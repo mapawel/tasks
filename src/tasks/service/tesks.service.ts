@@ -118,7 +118,6 @@ export class TasksService {
     next: NextFunction
   ): Promise<Response<TaskResDTO> | void> {
     try {
-      console.log("req.userId ----> ", req.userId);
       const { id } = plainToInstance(TaskReqParamDTO, req.params);
 
       const task: Task | null = await this.taskRepoitory.findOne({

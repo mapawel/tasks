@@ -1,11 +1,13 @@
-import { Request, Response } from "express";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Request, Response, NextFunction } from "express";
 import { HttpException } from "../../exceptions/http.exception";
 import { BadRequestException } from "../../exceptions/bad-request.exception";
 
 export const appExceptionMiddleware = (
   error: HttpException,
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   console.error(
     " --> APP ERROR: ",
